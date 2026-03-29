@@ -41,9 +41,14 @@ searchForm.addEventListener('submit', async event => {
 
     createGallery(data.hits);
 
-    if (data.totalHits > perPage) {
-      showLoadMoreButton();
-    }
+if (data.totalHits <= perPage) {
+  hideLoadMoreButton();
+  iziToast.info({
+    message: "We're sorry, but you've reached the end of search results.",
+  });
+} else {
+  showLoadMoreButton();
+}
   } catch (error) {
     iziToast.error({ message: 'Error fetching images!' });
   } finally {
